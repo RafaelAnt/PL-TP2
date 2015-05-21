@@ -1,0 +1,20 @@
+int i;
+int a, b, c;
+char c;
+char u,i,o;
+
+i=1*6;
+c='T';
+
+while(i<5){
+b=b*2;
+i=i+1;
+}
+
+if(i>50){
+i=0;
+}else{
+i=i+1;
+}
+
+/*Teste aos comentários*/
