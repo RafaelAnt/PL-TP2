@@ -1,21 +1,21 @@
 %{
-
+#include <stdio>
 %}
 
 %token INT CHAR WHILE IF ELSE COMENT
 %token pal num car
 %%
-Linguagem : ListaExpressao
-          | Comentario
+Linguagem : Expressao                     {printf("Sucesso!\n");}
+          | Comentario                    {printf("Sucesso!\n");}
           | Expressao Linguagem
           | Comentario Linguagem
-          ;                                           {printf("Sucesso!\n");}
+          ;
 
 ListaExpressao : Expressao
                | Expressao ListaExpressao
                ;
 
-Comentario : '/''*' COMENT '*''/'
+Comentario : COMENT                       {printf("Comentário Detetado!\n");}
            ;
 
 Expressao : DeclaraInt ';'
