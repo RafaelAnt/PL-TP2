@@ -419,18 +419,18 @@ static yyconst flex_int32_t yy_ec[256] =
 
 static yyconst flex_int32_t yy_meta[38] =
     {   0,
-        1,    2,    1,    1,    1,    1,    1,    1,    1,    1,
-        3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    3,    3,    3,    1,    1
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        2,    2,    2,    2,    2,    2,    2,    2,    2,    2,
+        2,    2,    2,    2,    2,    2,    2,    2,    2,    2,
+        2,    2,    2,    2,    2,    1,    1
     } ;
 
 static yyconst flex_int16_t yy_base[42] =
     {   0,
-        0,    0,   71,   80,   80,   80,   80,   80,   80,   80,
-       63,   59,    0,   22,   21,   25,   25,   80,   80,   61,
+        0,    0,   71,   79,   79,   79,   79,   79,   79,   79,
+       63,   59,    0,   22,   21,   25,   25,   79,   79,   61,
        57,    0,   31,   24,    0,   24,   30,   58,   53,   29,
-       40,    0,   45,   41,    0,    0,   50,    0,   80,   40,
+       40,    0,   45,   41,    0,    0,   50,    0,   79,   41,
        76
     } ;
 
@@ -443,7 +443,7 @@ static yyconst flex_int16_t yy_def[42] =
        39
     } ;
 
-static yyconst flex_int16_t yy_nxt[118] =
+static yyconst flex_int16_t yy_nxt[117] =
     {   0,
         4,    4,    5,    6,    7,    8,    9,   10,   11,   12,
        13,   13,   14,   15,   13,   13,   16,   13,   13,   13,
@@ -452,15 +452,15 @@ static yyconst flex_int16_t yy_nxt[118] =
        27,   30,   22,   26,   31,   32,   33,   29,   35,   23,
        24,   25,   27,   36,   30,   26,   31,   32,   33,   29,
        35,   34,   37,   38,   29,   36,   21,   29,   21,   20,
-       39,   39,   39,   39,   37,   38,   28,   39,   28,    3,
+       39,   39,   39,   39,   37,   38,   28,   28,    3,   39,
        39,   39,   39,   39,   39,   39,   39,   39,   39,   39,
        39,   39,   39,   39,   39,   39,   39,   39,   39,   39,
 
        39,   39,   39,   39,   39,   39,   39,   39,   39,   39,
-       39,   39,   39,   39,   39,   39,   39
+       39,   39,   39,   39,   39,   39
     } ;
 
-static yyconst flex_int16_t yy_chk[118] =
+static yyconst flex_int16_t yy_chk[117] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -469,12 +469,12 @@ static yyconst flex_int16_t yy_chk[118] =
        17,   23,   40,   16,   24,   26,   27,   34,   30,   14,
        15,   16,   17,   31,   23,   16,   24,   26,   27,   29,
        30,   29,   33,   37,   28,   31,   21,   20,   12,   11,
-        3,    0,    0,    0,   33,   37,   41,    0,   41,   39,
+        3,    0,    0,    0,   33,   37,   41,   41,   39,   39,
        39,   39,   39,   39,   39,   39,   39,   39,   39,   39,
        39,   39,   39,   39,   39,   39,   39,   39,   39,   39,
 
        39,   39,   39,   39,   39,   39,   39,   39,   39,   39,
-       39,   39,   39,   39,   39,   39,   39
+       39,   39,   39,   39,   39,   39
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -742,7 +742,7 @@ yy_match:
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 80 );
+		while ( yy_base[yy_current_state] != 79 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -792,9 +792,10 @@ YY_RULE_SETUP
 {return(ELSE);}
 	YY_BREAK
 case 6:
+/* rule 6 can match eol */
 YY_RULE_SETUP
 #line 12 "parser.l"
-{return(COMENT);}
+{;}                            //ignora comentários!
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
@@ -844,17 +845,17 @@ YY_RULE_SETUP
 case 16:
 YY_RULE_SETUP
 #line 22 "parser.l"
-{return(car);}
+{yylval.valc=yytext[0];return(car);}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 23 "parser.l"
-{return(pal);}
+{yylval.vals=strdup(yytext); return(pal);}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 24 "parser.l"
-{return(num);}
+{yylval.vali=atoi(yytext); return(num);}
 	YY_BREAK
 case 19:
 /* rule 19 can match eol */
@@ -867,7 +868,7 @@ YY_RULE_SETUP
 #line 26 "parser.l"
 ECHO;
 	YY_BREAK
-#line 871 "lex.yy.c"
+#line 872 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1869,6 +1870,7 @@ void yyfree (void * ptr )
 
 
 
-int yywrap()
-{ return(1); }
+int yywrap(){
+  return(1);
+}
 

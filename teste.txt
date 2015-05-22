@@ -23,6 +23,10 @@ if(j!=5){
   }
 }
 
+int o;
+
 a%b;
 
-/*Teste aos comentários*/
+/*Teste aos comentários
+
+Perfeito*/

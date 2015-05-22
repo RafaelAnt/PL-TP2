@@ -1,37 +1,40 @@
 %{
 #include <stdio.h>
+#include "hash.c"
 
 #define _GNU_SOURCE
 #define TypeINT 1
 #define TypeChar 2
 #define TypeString 3
 
-int nComents = 0, nCiclos = 0, nIfs = 0, nOperacoes = 0, nAtribuicoes = 0, nDeclaracoes = 0, nComparacoes = 0;
-
+int nCiclos = 0, nIfs = 0, nOperacoes = 0, nAtribuicoes = 0, nDeclaracoes = 0, nComparacoes = 0;
+HashTable h = NULL;
 
 void printSumario();
 %}
 
-%union{int vali; char valc; char* vals}
-%token INT CHAR WHILE IF ELSE COMENT
+%union{int vali; char valc; char* vals;}
+%token INT CHAR WHILE IF ELSE
 %token <vals>pal <vali>num <valc>car
 %%
-Linguagem : Expressao                     {printSumario();}
-          | Comentario                    {printSumario();}
-          | Expressao Linguagem
-          | Comentario Linguagem
+Linguagem : ListaDeclaracoes ListaExpressao                      {printSumario();}
           ;
+
+ListaDeclaracoes : Declaracao
+                 | Declaracao ListaDeclaracoes
+                 ;
+
+Declaracao : DeclaraInt ';'
+           | DeclaraChar ';'
+           ;
 
 ListaExpressao : Expressao
                | Expressao ListaExpressao
                ;
 
-Comentario : COMENT                       {nComents++;}
-           ;
 
-Expressao : DeclaraInt ';'
-          | DeclaraChar ';'
-          | Operacao ';'
+
+Expressao : Operacao ';'
           | AtribuicaoInt ';'
           | AtribuicaoChar ';'
           | Comparacao ';'
@@ -39,7 +42,7 @@ Expressao : DeclaraInt ';'
           | IfElse
           ;
 
-Ciclo : WHILE '('Comparacao {nComparacoes++;} ')' '{' ListaExpressao '}' {nCiclos++;}
+Ciclo : WHILE '('Comparacao ')' '{' ListaExpressao '}' {nCiclos++;}
 
 IfElse : IF '('Comparacao ')' '{' ListaExpressao '}' {nIfs++;}
        | IF '('Comparacao ')' '{' ListaExpressao '}' ELSE '{' ListaExpressao '}' {nIfs++;}
@@ -111,7 +114,7 @@ num - numero
 car - caratere
 */
 void printSumario(){
-  printf("*** Sucesso! ***\nSumário:\nDeclarações: %d\nAtribuições: %d\nComparações: %d\nOperações: %d\nComentários: %d\nCiclos: %d\nIf-Else: %d\n",nDeclaracoes,nAtribuicoes,nComparacoes,nOperacoes,nComents,nCiclos,nIfs);
+  printf("*** Sucesso! ***\nSumário:\nDeclarações: %d\nAtribuições: %d\nComparações: %d\nOperações: %d\nCiclos: %d\nIf-Else: %d\n",nDeclaracoes,nAtribuicoes,nComparacoes,nOperacoes,nCiclos,nIfs);
 }
 
 void yyerror(char * e){

@@ -1,1228 +1,1152 @@
-State 22 conflicts: 1 shift/reduce
+State 28 conflicts: 1 shift/reduce
 
 
 Grammar
 
     0 $accept: Linguagem $end
 
-    1 Linguagem: Expressao
-    2          | Comentario
-    3          | Expressao Linguagem
-    4          | Comentario Linguagem
+    1 Linguagem: ListaDeclaracoes ListaExpressao
 
-    5 ListaExpressao: Expressao
-    6               | Expressao ListaExpressao
+    2 ListaDeclaracoes: Declaracao
+    3                 | Declaracao ListaDeclaracoes
 
-    7 Comentario: COMENT
+    4 Declaracao: DeclaraInt ';'
+    5           | DeclaraChar ';'
 
-    8 Expressao: DeclaraInt ';'
-    9          | DeclaraChar ';'
-   10          | Operacao ';'
-   11          | AtribuicaoInt ';'
-   12          | AtribuicaoChar ';'
-   13          | Comparacao ';'
-   14          | Ciclo
-   15          | IfElse
+    6 ListaExpressao: Expressao
+    7               | Expressao ListaExpressao
 
-   16 $@1: %empty
+    8 Expressao: Operacao ';'
+    9          | AtribuicaoInt ';'
+   10          | AtribuicaoChar ';'
+   11          | Comparacao ';'
+   12          | Ciclo
+   13          | IfElse
 
-   17 Ciclo: WHILE '(' Comparacao $@1 ')' '{' ListaExpressao '}'
+   14 Ciclo: WHILE '(' Comparacao ')' '{' ListaExpressao '}'
 
-   18 IfElse: IF '(' Comparacao ')' '{' ListaExpressao '}'
-   19       | IF '(' Comparacao ')' '{' ListaExpressao '}' ELSE '{' ListaExpressao '}'
+   15 IfElse: IF '(' Comparacao ')' '{' ListaExpressao '}'
+   16       | IF '(' Comparacao ')' '{' ListaExpressao '}' ELSE '{' ListaExpressao '}'
 
-   20 DeclaraInt: INT ListaVariaveisInt
+   17 DeclaraInt: INT ListaVariaveisInt
 
-   21 ListaVariaveisInt: Variavel
-   22                  | Variavel '=' num
-   23                  | Variavel ',' ListaVariaveisInt
-   24                  | Variavel '=' num ',' ListaVariaveisInt
+   18 ListaVariaveisInt: Variavel
+   19                  | Variavel '=' num
+   20                  | Variavel ',' ListaVariaveisInt
+   21                  | Variavel '=' num ',' ListaVariaveisInt
 
-   25 DeclaraChar: CHAR ListaVariaveisChar
+   22 DeclaraChar: CHAR ListaVariaveisChar
 
-   26 ListaVariaveisChar: Variavel
-   27                   | Variavel '=' '\'' car '\''
-   28                   | Variavel ',' ListaVariaveisChar
-   29                   | Variavel '=' '\'' car '\'' ',' ListaVariaveisChar
+   23 ListaVariaveisChar: Variavel
+   24                   | Variavel '=' '\'' car '\''
+   25                   | Variavel ',' ListaVariaveisChar
+   26                   | Variavel '=' '\'' car '\'' ',' ListaVariaveisChar
 
-   30 Operacao: Termo Operador Termo
-   31         | Termo Operador '(' Operacao ')'
-   32         | '(' Operacao ')' Operador Termo
-   33         | Operacao Operador Termo
+   27 Operacao: Termo Operador Termo
+   28         | Termo Operador '(' Operacao ')'
+   29         | '(' Operacao ')' Operador Termo
+   30         | Operacao Operador Termo
 
-   34 AtribuicaoInt: Variavel '=' num
-   35              | Variavel '=' Operacao
+   31 AtribuicaoInt: Variavel '=' num
+   32              | Variavel '=' Operacao
 
-   36 AtribuicaoChar: Variavel '=' '\'' car '\''
+   33 AtribuicaoChar: Variavel '=' '\'' car '\''
 
-   37 Comparacao: Termo OpComp Termo
+   34 Comparacao: Termo OpComp Termo
 
-   38 OpComp: '<'
-   39       | '>'
-   40       | '=' '='
-   41       | '!' '='
-   42       | '<' '='
-   43       | '>' '='
+   35 OpComp: '<'
+   36       | '>'
+   37       | '=' '='
+   38       | '!' '='
+   39       | '<' '='
+   40       | '>' '='
 
-   44 Operador: '+'
-   45         | '-'
-   46         | '*'
-   47         | '/'
-   48         | '%'
+   41 Operador: '+'
+   42         | '-'
+   43         | '*'
+   44         | '/'
+   45         | '%'
 
-   49 Termo: Variavel
-   50      | num
+   46 Termo: Variavel
+   47      | num
 
-   51 Variavel: pal
-   52         | car
+   48 Variavel: pal
+   49         | car
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
-'!' (33) 41
-'%' (37) 48
-'\'' (39) 27 29 36
-'(' (40) 17 18 19 31 32
-')' (41) 17 18 19 31 32
-'*' (42) 46
-'+' (43) 44
-',' (44) 23 24 28 29
-'-' (45) 45
-'/' (47) 47
-';' (59) 8 9 10 11 12 13
-'<' (60) 38 42
-'=' (61) 22 24 27 29 34 35 36 40 41 42 43
-'>' (62) 39 43
-'{' (123) 17 18 19
-'}' (125) 17 18 19
+'!' (33) 38
+'%' (37) 45
+'\'' (39) 24 26 33
+'(' (40) 14 15 16 28 29
+')' (41) 14 15 16 28 29
+'*' (42) 43
+'+' (43) 41
+',' (44) 20 21 25 26
+'-' (45) 42
+'/' (47) 44
+';' (59) 4 5 8 9 10 11
+'<' (60) 35 39
+'=' (61) 19 21 24 26 31 32 33 37 38 39 40
+'>' (62) 36 40
+'{' (123) 14 15 16
+'}' (125) 14 15 16
 error (256)
-INT (258) 20
-CHAR (259) 25
-WHILE (260) 17
-IF (261) 18 19
-ELSE (262) 19
-COMENT (263) 7
-pal (264) 51
-num (265) 22 24 34 50
-car (266) 27 29 36 52
+INT (258) 17
+CHAR (259) 22
+WHILE (260) 14
+IF (261) 15 16
+ELSE (262) 16
+pal (263) 48
+num (264) 19 21 31 47
+car (265) 24 26 33 49
 
 
 Nonterminals, with rules where they appear
 
-$accept (28)
+$accept (27)
     on left: 0
-Linguagem (29)
-    on left: 1 2 3 4, on right: 0 3 4
-ListaExpressao (30)
-    on left: 5 6, on right: 6 17 18 19
-Comentario (31)
-    on left: 7, on right: 2 4
+Linguagem (28)
+    on left: 1, on right: 0
+ListaDeclaracoes (29)
+    on left: 2 3, on right: 1 3
+Declaracao (30)
+    on left: 4 5, on right: 2 3
+ListaExpressao (31)
+    on left: 6 7, on right: 1 7 14 15 16
 Expressao (32)
-    on left: 8 9 10 11 12 13 14 15, on right: 1 3 5 6
+    on left: 8 9 10 11 12 13, on right: 6 7
 Ciclo (33)
-    on left: 17, on right: 14
-$@1 (34)
-    on left: 16, on right: 17
-IfElse (35)
-    on left: 18 19, on right: 15
-DeclaraInt (36)
-    on left: 20, on right: 8
-ListaVariaveisInt (37)
-    on left: 21 22 23 24, on right: 20 23 24
-DeclaraChar (38)
-    on left: 25, on right: 9
-ListaVariaveisChar (39)
-    on left: 26 27 28 29, on right: 25 28 29
-Operacao (40)
-    on left: 30 31 32 33, on right: 10 31 32 33 35
-AtribuicaoInt (41)
-    on left: 34 35, on right: 11
-AtribuicaoChar (42)
-    on left: 36, on right: 12
-Comparacao (43)
-    on left: 37, on right: 13 17 18 19
-OpComp (44)
-    on left: 38 39 40 41 42 43, on right: 37
-Operador (45)
-    on left: 44 45 46 47 48, on right: 30 31 32 33
-Termo (46)
-    on left: 49 50, on right: 30 31 32 33 37
-Variavel (47)
-    on left: 51 52, on right: 21 22 23 24 26 27 28 29 34 35 36 49
+    on left: 14, on right: 12
+IfElse (34)
+    on left: 15 16, on right: 13
+DeclaraInt (35)
+    on left: 17, on right: 4
+ListaVariaveisInt (36)
+    on left: 18 19 20 21, on right: 17 20 21
+DeclaraChar (37)
+    on left: 22, on right: 5
+ListaVariaveisChar (38)
+    on left: 23 24 25 26, on right: 22 25 26
+Operacao (39)
+    on left: 27 28 29 30, on right: 8 28 29 30 32
+AtribuicaoInt (40)
+    on left: 31 32, on right: 9
+AtribuicaoChar (41)
+    on left: 33, on right: 10
+Comparacao (42)
+    on left: 34, on right: 11 14 15 16
+OpComp (43)
+    on left: 35 36 37 38 39 40, on right: 34
+Operador (44)
+    on left: 41 42 43 44 45, on right: 27 28 29 30
+Termo (45)
+    on left: 46 47, on right: 27 28 29 30 34
+Variavel (46)
+    on left: 48 49, on right: 18 19 20 21 23 24 25 26 31 32 33 46
 
 
 State 0
 
     0 $accept: . Linguagem $end
 
-    INT     shift, and go to state 1
-    CHAR    shift, and go to state 2
-    WHILE   shift, and go to state 3
-    IF      shift, and go to state 4
-    COMENT  shift, and go to state 5
-    pal     shift, and go to state 6
-    num     shift, and go to state 7
-    car     shift, and go to state 8
-    '('     shift, and go to state 9
+    INT   shift, and go to state 1
+    CHAR  shift, and go to state 2
 
-    Linguagem       go to state 10
-    Comentario      go to state 11
-    Expressao       go to state 12
-    Ciclo           go to state 13
-    IfElse          go to state 14
-    DeclaraInt      go to state 15
-    DeclaraChar     go to state 16
-    Operacao        go to state 17
-    AtribuicaoInt   go to state 18
-    AtribuicaoChar  go to state 19
-    Comparacao      go to state 20
-    Termo           go to state 21
-    Variavel        go to state 22
+    Linguagem         go to state 3
+    ListaDeclaracoes  go to state 4
+    Declaracao        go to state 5
+    DeclaraInt        go to state 6
+    DeclaraChar       go to state 7
 
 
 State 1
 
-   20 DeclaraInt: INT . ListaVariaveisInt
+   17 DeclaraInt: INT . ListaVariaveisInt
 
-    pal  shift, and go to state 6
-    car  shift, and go to state 8
+    pal  shift, and go to state 8
+    car  shift, and go to state 9
 
-    ListaVariaveisInt  go to state 23
-    Variavel           go to state 24
+    ListaVariaveisInt  go to state 10
+    Variavel           go to state 11
 
 
 State 2
 
-   25 DeclaraChar: CHAR . ListaVariaveisChar
+   22 DeclaraChar: CHAR . ListaVariaveisChar
 
-    pal  shift, and go to state 6
-    car  shift, and go to state 8
+    pal  shift, and go to state 8
+    car  shift, and go to state 9
 
-    ListaVariaveisChar  go to state 25
-    Variavel            go to state 26
+    ListaVariaveisChar  go to state 12
+    Variavel            go to state 13
 
 
 State 3
 
-   17 Ciclo: WHILE . '(' Comparacao $@1 ')' '{' ListaExpressao '}'
+    0 $accept: Linguagem . $end
 
-    '('  shift, and go to state 27
+    $end  shift, and go to state 14
 
 
 State 4
 
-   18 IfElse: IF . '(' Comparacao ')' '{' ListaExpressao '}'
-   19       | IF . '(' Comparacao ')' '{' ListaExpressao '}' ELSE '{' ListaExpressao '}'
+    1 Linguagem: ListaDeclaracoes . ListaExpressao
 
-    '('  shift, and go to state 28
+    WHILE  shift, and go to state 15
+    IF     shift, and go to state 16
+    pal    shift, and go to state 8
+    num    shift, and go to state 17
+    car    shift, and go to state 9
+    '('    shift, and go to state 18
+
+    ListaExpressao  go to state 19
+    Expressao       go to state 20
+    Ciclo           go to state 21
+    IfElse          go to state 22
+    Operacao        go to state 23
+    AtribuicaoInt   go to state 24
+    AtribuicaoChar  go to state 25
+    Comparacao      go to state 26
+    Termo           go to state 27
+    Variavel        go to state 28
 
 
 State 5
 
-    7 Comentario: COMENT .
+    2 ListaDeclaracoes: Declaracao .
+    3                 | Declaracao . ListaDeclaracoes
 
-    $default  reduce using rule 7 (Comentario)
+    INT   shift, and go to state 1
+    CHAR  shift, and go to state 2
+
+    $default  reduce using rule 2 (ListaDeclaracoes)
+
+    ListaDeclaracoes  go to state 29
+    Declaracao        go to state 5
+    DeclaraInt        go to state 6
+    DeclaraChar       go to state 7
 
 
 State 6
 
-   51 Variavel: pal .
+    4 Declaracao: DeclaraInt . ';'
 
-    $default  reduce using rule 51 (Variavel)
+    ';'  shift, and go to state 30
 
 
 State 7
 
-   50 Termo: num .
+    5 Declaracao: DeclaraChar . ';'
 
-    $default  reduce using rule 50 (Termo)
+    ';'  shift, and go to state 31
 
 
 State 8
 
-   52 Variavel: car .
+   48 Variavel: pal .
 
-    $default  reduce using rule 52 (Variavel)
+    $default  reduce using rule 48 (Variavel)
 
 
 State 9
 
-   32 Operacao: '(' . Operacao ')' Operador Termo
+   49 Variavel: car .
 
-    pal  shift, and go to state 6
-    num  shift, and go to state 7
-    car  shift, and go to state 8
-    '('  shift, and go to state 9
-
-    Operacao  go to state 29
-    Termo     go to state 30
-    Variavel  go to state 31
+    $default  reduce using rule 49 (Variavel)
 
 
 State 10
 
-    0 $accept: Linguagem . $end
+   17 DeclaraInt: INT ListaVariaveisInt .
 
-    $end  shift, and go to state 32
+    $default  reduce using rule 17 (DeclaraInt)
 
 
 State 11
 
-    2 Linguagem: Comentario .
-    4          | Comentario . Linguagem
+   18 ListaVariaveisInt: Variavel .
+   19                  | Variavel . '=' num
+   20                  | Variavel . ',' ListaVariaveisInt
+   21                  | Variavel . '=' num ',' ListaVariaveisInt
 
-    INT     shift, and go to state 1
-    CHAR    shift, and go to state 2
-    WHILE   shift, and go to state 3
-    IF      shift, and go to state 4
-    COMENT  shift, and go to state 5
-    pal     shift, and go to state 6
-    num     shift, and go to state 7
-    car     shift, and go to state 8
-    '('     shift, and go to state 9
+    '='  shift, and go to state 32
+    ','  shift, and go to state 33
 
-    $default  reduce using rule 2 (Linguagem)
-
-    Linguagem       go to state 33
-    Comentario      go to state 11
-    Expressao       go to state 12
-    Ciclo           go to state 13
-    IfElse          go to state 14
-    DeclaraInt      go to state 15
-    DeclaraChar     go to state 16
-    Operacao        go to state 17
-    AtribuicaoInt   go to state 18
-    AtribuicaoChar  go to state 19
-    Comparacao      go to state 20
-    Termo           go to state 21
-    Variavel        go to state 22
+    $default  reduce using rule 18 (ListaVariaveisInt)
 
 
 State 12
 
-    1 Linguagem: Expressao .
-    3          | Expressao . Linguagem
+   22 DeclaraChar: CHAR ListaVariaveisChar .
 
-    INT     shift, and go to state 1
-    CHAR    shift, and go to state 2
-    WHILE   shift, and go to state 3
-    IF      shift, and go to state 4
-    COMENT  shift, and go to state 5
-    pal     shift, and go to state 6
-    num     shift, and go to state 7
-    car     shift, and go to state 8
-    '('     shift, and go to state 9
-
-    $default  reduce using rule 1 (Linguagem)
-
-    Linguagem       go to state 34
-    Comentario      go to state 11
-    Expressao       go to state 12
-    Ciclo           go to state 13
-    IfElse          go to state 14
-    DeclaraInt      go to state 15
-    DeclaraChar     go to state 16
-    Operacao        go to state 17
-    AtribuicaoInt   go to state 18
-    AtribuicaoChar  go to state 19
-    Comparacao      go to state 20
-    Termo           go to state 21
-    Variavel        go to state 22
+    $default  reduce using rule 22 (DeclaraChar)
 
 
 State 13
 
-   14 Expressao: Ciclo .
+   23 ListaVariaveisChar: Variavel .
+   24                   | Variavel . '=' '\'' car '\''
+   25                   | Variavel . ',' ListaVariaveisChar
+   26                   | Variavel . '=' '\'' car '\'' ',' ListaVariaveisChar
 
-    $default  reduce using rule 14 (Expressao)
+    '='  shift, and go to state 34
+    ','  shift, and go to state 35
+
+    $default  reduce using rule 23 (ListaVariaveisChar)
 
 
 State 14
-
-   15 Expressao: IfElse .
-
-    $default  reduce using rule 15 (Expressao)
-
-
-State 15
-
-    8 Expressao: DeclaraInt . ';'
-
-    ';'  shift, and go to state 35
-
-
-State 16
-
-    9 Expressao: DeclaraChar . ';'
-
-    ';'  shift, and go to state 36
-
-
-State 17
-
-   10 Expressao: Operacao . ';'
-   33 Operacao: Operacao . Operador Termo
-
-    ';'  shift, and go to state 37
-    '+'  shift, and go to state 38
-    '-'  shift, and go to state 39
-    '*'  shift, and go to state 40
-    '/'  shift, and go to state 41
-    '%'  shift, and go to state 42
-
-    Operador  go to state 43
-
-
-State 18
-
-   11 Expressao: AtribuicaoInt . ';'
-
-    ';'  shift, and go to state 44
-
-
-State 19
-
-   12 Expressao: AtribuicaoChar . ';'
-
-    ';'  shift, and go to state 45
-
-
-State 20
-
-   13 Expressao: Comparacao . ';'
-
-    ';'  shift, and go to state 46
-
-
-State 21
-
-   30 Operacao: Termo . Operador Termo
-   31         | Termo . Operador '(' Operacao ')'
-   37 Comparacao: Termo . OpComp Termo
-
-    '='  shift, and go to state 47
-    '<'  shift, and go to state 48
-    '>'  shift, and go to state 49
-    '!'  shift, and go to state 50
-    '+'  shift, and go to state 38
-    '-'  shift, and go to state 39
-    '*'  shift, and go to state 40
-    '/'  shift, and go to state 41
-    '%'  shift, and go to state 42
-
-    OpComp    go to state 51
-    Operador  go to state 52
-
-
-State 22
-
-   34 AtribuicaoInt: Variavel . '=' num
-   35              | Variavel . '=' Operacao
-   36 AtribuicaoChar: Variavel . '=' '\'' car '\''
-   49 Termo: Variavel .
-
-    '='  shift, and go to state 53
-
-    '='       [reduce using rule 49 (Termo)]
-    $default  reduce using rule 49 (Termo)
-
-
-State 23
-
-   20 DeclaraInt: INT ListaVariaveisInt .
-
-    $default  reduce using rule 20 (DeclaraInt)
-
-
-State 24
-
-   21 ListaVariaveisInt: Variavel .
-   22                  | Variavel . '=' num
-   23                  | Variavel . ',' ListaVariaveisInt
-   24                  | Variavel . '=' num ',' ListaVariaveisInt
-
-    '='  shift, and go to state 54
-    ','  shift, and go to state 55
-
-    $default  reduce using rule 21 (ListaVariaveisInt)
-
-
-State 25
-
-   25 DeclaraChar: CHAR ListaVariaveisChar .
-
-    $default  reduce using rule 25 (DeclaraChar)
-
-
-State 26
-
-   26 ListaVariaveisChar: Variavel .
-   27                   | Variavel . '=' '\'' car '\''
-   28                   | Variavel . ',' ListaVariaveisChar
-   29                   | Variavel . '=' '\'' car '\'' ',' ListaVariaveisChar
-
-    '='  shift, and go to state 56
-    ','  shift, and go to state 57
-
-    $default  reduce using rule 26 (ListaVariaveisChar)
-
-
-State 27
-
-   17 Ciclo: WHILE '(' . Comparacao $@1 ')' '{' ListaExpressao '}'
-
-    pal  shift, and go to state 6
-    num  shift, and go to state 7
-    car  shift, and go to state 8
-
-    Comparacao  go to state 58
-    Termo       go to state 59
-    Variavel    go to state 31
-
-
-State 28
-
-   18 IfElse: IF '(' . Comparacao ')' '{' ListaExpressao '}'
-   19       | IF '(' . Comparacao ')' '{' ListaExpressao '}' ELSE '{' ListaExpressao '}'
-
-    pal  shift, and go to state 6
-    num  shift, and go to state 7
-    car  shift, and go to state 8
-
-    Comparacao  go to state 60
-    Termo       go to state 59
-    Variavel    go to state 31
-
-
-State 29
-
-   32 Operacao: '(' Operacao . ')' Operador Termo
-   33         | Operacao . Operador Termo
-
-    ')'  shift, and go to state 61
-    '+'  shift, and go to state 38
-    '-'  shift, and go to state 39
-    '*'  shift, and go to state 40
-    '/'  shift, and go to state 41
-    '%'  shift, and go to state 42
-
-    Operador  go to state 43
-
-
-State 30
-
-   30 Operacao: Termo . Operador Termo
-   31         | Termo . Operador '(' Operacao ')'
-
-    '+'  shift, and go to state 38
-    '-'  shift, and go to state 39
-    '*'  shift, and go to state 40
-    '/'  shift, and go to state 41
-    '%'  shift, and go to state 42
-
-    Operador  go to state 52
-
-
-State 31
-
-   49 Termo: Variavel .
-
-    $default  reduce using rule 49 (Termo)
-
-
-State 32
 
     0 $accept: Linguagem $end .
 
     $default  accept
 
 
-State 33
+State 15
 
-    4 Linguagem: Comentario Linguagem .
+   14 Ciclo: WHILE . '(' Comparacao ')' '{' ListaExpressao '}'
 
-    $default  reduce using rule 4 (Linguagem)
-
-
-State 34
-
-    3 Linguagem: Expressao Linguagem .
-
-    $default  reduce using rule 3 (Linguagem)
+    '('  shift, and go to state 36
 
 
-State 35
+State 16
 
-    8 Expressao: DeclaraInt ';' .
+   15 IfElse: IF . '(' Comparacao ')' '{' ListaExpressao '}'
+   16       | IF . '(' Comparacao ')' '{' ListaExpressao '}' ELSE '{' ListaExpressao '}'
 
-    $default  reduce using rule 8 (Expressao)
-
-
-State 36
-
-    9 Expressao: DeclaraChar ';' .
-
-    $default  reduce using rule 9 (Expressao)
+    '('  shift, and go to state 37
 
 
-State 37
+State 17
 
-   10 Expressao: Operacao ';' .
+   47 Termo: num .
 
-    $default  reduce using rule 10 (Expressao)
-
-
-State 38
-
-   44 Operador: '+' .
-
-    $default  reduce using rule 44 (Operador)
+    $default  reduce using rule 47 (Termo)
 
 
-State 39
+State 18
 
-   45 Operador: '-' .
+   29 Operacao: '(' . Operacao ')' Operador Termo
 
-    $default  reduce using rule 45 (Operador)
+    pal  shift, and go to state 8
+    num  shift, and go to state 17
+    car  shift, and go to state 9
+    '('  shift, and go to state 18
 
-
-State 40
-
-   46 Operador: '*' .
-
-    $default  reduce using rule 46 (Operador)
-
-
-State 41
-
-   47 Operador: '/' .
-
-    $default  reduce using rule 47 (Operador)
+    Operacao  go to state 38
+    Termo     go to state 39
+    Variavel  go to state 40
 
 
-State 42
+State 19
 
-   48 Operador: '%' .
+    1 Linguagem: ListaDeclaracoes ListaExpressao .
 
-    $default  reduce using rule 48 (Operador)
-
-
-State 43
-
-   33 Operacao: Operacao Operador . Termo
-
-    pal  shift, and go to state 6
-    num  shift, and go to state 7
-    car  shift, and go to state 8
-
-    Termo     go to state 62
-    Variavel  go to state 31
+    $default  reduce using rule 1 (Linguagem)
 
 
-State 44
+State 20
 
-   11 Expressao: AtribuicaoInt ';' .
+    6 ListaExpressao: Expressao .
+    7               | Expressao . ListaExpressao
 
-    $default  reduce using rule 11 (Expressao)
+    WHILE  shift, and go to state 15
+    IF     shift, and go to state 16
+    pal    shift, and go to state 8
+    num    shift, and go to state 17
+    car    shift, and go to state 9
+    '('    shift, and go to state 18
+
+    $default  reduce using rule 6 (ListaExpressao)
+
+    ListaExpressao  go to state 41
+    Expressao       go to state 20
+    Ciclo           go to state 21
+    IfElse          go to state 22
+    Operacao        go to state 23
+    AtribuicaoInt   go to state 24
+    AtribuicaoChar  go to state 25
+    Comparacao      go to state 26
+    Termo           go to state 27
+    Variavel        go to state 28
 
 
-State 45
+State 21
 
-   12 Expressao: AtribuicaoChar ';' .
+   12 Expressao: Ciclo .
 
     $default  reduce using rule 12 (Expressao)
 
 
-State 46
+State 22
 
-   13 Expressao: Comparacao ';' .
+   13 Expressao: IfElse .
 
     $default  reduce using rule 13 (Expressao)
 
 
+State 23
+
+    8 Expressao: Operacao . ';'
+   30 Operacao: Operacao . Operador Termo
+
+    ';'  shift, and go to state 42
+    '+'  shift, and go to state 43
+    '-'  shift, and go to state 44
+    '*'  shift, and go to state 45
+    '/'  shift, and go to state 46
+    '%'  shift, and go to state 47
+
+    Operador  go to state 48
+
+
+State 24
+
+    9 Expressao: AtribuicaoInt . ';'
+
+    ';'  shift, and go to state 49
+
+
+State 25
+
+   10 Expressao: AtribuicaoChar . ';'
+
+    ';'  shift, and go to state 50
+
+
+State 26
+
+   11 Expressao: Comparacao . ';'
+
+    ';'  shift, and go to state 51
+
+
+State 27
+
+   27 Operacao: Termo . Operador Termo
+   28         | Termo . Operador '(' Operacao ')'
+   34 Comparacao: Termo . OpComp Termo
+
+    '='  shift, and go to state 52
+    '<'  shift, and go to state 53
+    '>'  shift, and go to state 54
+    '!'  shift, and go to state 55
+    '+'  shift, and go to state 43
+    '-'  shift, and go to state 44
+    '*'  shift, and go to state 45
+    '/'  shift, and go to state 46
+    '%'  shift, and go to state 47
+
+    OpComp    go to state 56
+    Operador  go to state 57
+
+
+State 28
+
+   31 AtribuicaoInt: Variavel . '=' num
+   32              | Variavel . '=' Operacao
+   33 AtribuicaoChar: Variavel . '=' '\'' car '\''
+   46 Termo: Variavel .
+
+    '='  shift, and go to state 58
+
+    '='       [reduce using rule 46 (Termo)]
+    $default  reduce using rule 46 (Termo)
+
+
+State 29
+
+    3 ListaDeclaracoes: Declaracao ListaDeclaracoes .
+
+    $default  reduce using rule 3 (ListaDeclaracoes)
+
+
+State 30
+
+    4 Declaracao: DeclaraInt ';' .
+
+    $default  reduce using rule 4 (Declaracao)
+
+
+State 31
+
+    5 Declaracao: DeclaraChar ';' .
+
+    $default  reduce using rule 5 (Declaracao)
+
+
+State 32
+
+   19 ListaVariaveisInt: Variavel '=' . num
+   21                  | Variavel '=' . num ',' ListaVariaveisInt
+
+    num  shift, and go to state 59
+
+
+State 33
+
+   20 ListaVariaveisInt: Variavel ',' . ListaVariaveisInt
+
+    pal  shift, and go to state 8
+    car  shift, and go to state 9
+
+    ListaVariaveisInt  go to state 60
+    Variavel           go to state 11
+
+
+State 34
+
+   24 ListaVariaveisChar: Variavel '=' . '\'' car '\''
+   26                   | Variavel '=' . '\'' car '\'' ',' ListaVariaveisChar
+
+    '\''  shift, and go to state 61
+
+
+State 35
+
+   25 ListaVariaveisChar: Variavel ',' . ListaVariaveisChar
+
+    pal  shift, and go to state 8
+    car  shift, and go to state 9
+
+    ListaVariaveisChar  go to state 62
+    Variavel            go to state 13
+
+
+State 36
+
+   14 Ciclo: WHILE '(' . Comparacao ')' '{' ListaExpressao '}'
+
+    pal  shift, and go to state 8
+    num  shift, and go to state 17
+    car  shift, and go to state 9
+
+    Comparacao  go to state 63
+    Termo       go to state 64
+    Variavel    go to state 40
+
+
+State 37
+
+   15 IfElse: IF '(' . Comparacao ')' '{' ListaExpressao '}'
+   16       | IF '(' . Comparacao ')' '{' ListaExpressao '}' ELSE '{' ListaExpressao '}'
+
+    pal  shift, and go to state 8
+    num  shift, and go to state 17
+    car  shift, and go to state 9
+
+    Comparacao  go to state 65
+    Termo       go to state 64
+    Variavel    go to state 40
+
+
+State 38
+
+   29 Operacao: '(' Operacao . ')' Operador Termo
+   30         | Operacao . Operador Termo
+
+    ')'  shift, and go to state 66
+    '+'  shift, and go to state 43
+    '-'  shift, and go to state 44
+    '*'  shift, and go to state 45
+    '/'  shift, and go to state 46
+    '%'  shift, and go to state 47
+
+    Operador  go to state 48
+
+
+State 39
+
+   27 Operacao: Termo . Operador Termo
+   28         | Termo . Operador '(' Operacao ')'
+
+    '+'  shift, and go to state 43
+    '-'  shift, and go to state 44
+    '*'  shift, and go to state 45
+    '/'  shift, and go to state 46
+    '%'  shift, and go to state 47
+
+    Operador  go to state 57
+
+
+State 40
+
+   46 Termo: Variavel .
+
+    $default  reduce using rule 46 (Termo)
+
+
+State 41
+
+    7 ListaExpressao: Expressao ListaExpressao .
+
+    $default  reduce using rule 7 (ListaExpressao)
+
+
+State 42
+
+    8 Expressao: Operacao ';' .
+
+    $default  reduce using rule 8 (Expressao)
+
+
+State 43
+
+   41 Operador: '+' .
+
+    $default  reduce using rule 41 (Operador)
+
+
+State 44
+
+   42 Operador: '-' .
+
+    $default  reduce using rule 42 (Operador)
+
+
+State 45
+
+   43 Operador: '*' .
+
+    $default  reduce using rule 43 (Operador)
+
+
+State 46
+
+   44 Operador: '/' .
+
+    $default  reduce using rule 44 (Operador)
+
+
 State 47
 
-   40 OpComp: '=' . '='
+   45 Operador: '%' .
 
-    '='  shift, and go to state 63
+    $default  reduce using rule 45 (Operador)
 
 
 State 48
 
-   38 OpComp: '<' .
-   42       | '<' . '='
+   30 Operacao: Operacao Operador . Termo
 
-    '='  shift, and go to state 64
+    pal  shift, and go to state 8
+    num  shift, and go to state 17
+    car  shift, and go to state 9
 
-    $default  reduce using rule 38 (OpComp)
+    Termo     go to state 67
+    Variavel  go to state 40
 
 
 State 49
 
-   39 OpComp: '>' .
-   43       | '>' . '='
+    9 Expressao: AtribuicaoInt ';' .
 
-    '='  shift, and go to state 65
-
-    $default  reduce using rule 39 (OpComp)
+    $default  reduce using rule 9 (Expressao)
 
 
 State 50
 
-   41 OpComp: '!' . '='
+   10 Expressao: AtribuicaoChar ';' .
 
-    '='  shift, and go to state 66
+    $default  reduce using rule 10 (Expressao)
 
 
 State 51
 
-   37 Comparacao: Termo OpComp . Termo
+   11 Expressao: Comparacao ';' .
 
-    pal  shift, and go to state 6
-    num  shift, and go to state 7
-    car  shift, and go to state 8
-
-    Termo     go to state 67
-    Variavel  go to state 31
+    $default  reduce using rule 11 (Expressao)
 
 
 State 52
 
-   30 Operacao: Termo Operador . Termo
-   31         | Termo Operador . '(' Operacao ')'
+   37 OpComp: '=' . '='
 
-    pal  shift, and go to state 6
-    num  shift, and go to state 7
-    car  shift, and go to state 8
-    '('  shift, and go to state 68
-
-    Termo     go to state 69
-    Variavel  go to state 31
+    '='  shift, and go to state 68
 
 
 State 53
 
-   34 AtribuicaoInt: Variavel '=' . num
-   35              | Variavel '=' . Operacao
-   36 AtribuicaoChar: Variavel '=' . '\'' car '\''
+   35 OpComp: '<' .
+   39       | '<' . '='
 
-    pal   shift, and go to state 6
-    num   shift, and go to state 70
-    car   shift, and go to state 8
-    '('   shift, and go to state 9
-    '\''  shift, and go to state 71
+    '='  shift, and go to state 69
 
-    Operacao  go to state 72
-    Termo     go to state 30
-    Variavel  go to state 31
+    $default  reduce using rule 35 (OpComp)
 
 
 State 54
 
-   22 ListaVariaveisInt: Variavel '=' . num
-   24                  | Variavel '=' . num ',' ListaVariaveisInt
+   36 OpComp: '>' .
+   40       | '>' . '='
 
-    num  shift, and go to state 73
+    '='  shift, and go to state 70
+
+    $default  reduce using rule 36 (OpComp)
 
 
 State 55
 
-   23 ListaVariaveisInt: Variavel ',' . ListaVariaveisInt
+   38 OpComp: '!' . '='
 
-    pal  shift, and go to state 6
-    car  shift, and go to state 8
-
-    ListaVariaveisInt  go to state 74
-    Variavel           go to state 24
+    '='  shift, and go to state 71
 
 
 State 56
 
-   27 ListaVariaveisChar: Variavel '=' . '\'' car '\''
-   29                   | Variavel '=' . '\'' car '\'' ',' ListaVariaveisChar
+   34 Comparacao: Termo OpComp . Termo
 
-    '\''  shift, and go to state 75
+    pal  shift, and go to state 8
+    num  shift, and go to state 17
+    car  shift, and go to state 9
+
+    Termo     go to state 72
+    Variavel  go to state 40
 
 
 State 57
 
-   28 ListaVariaveisChar: Variavel ',' . ListaVariaveisChar
+   27 Operacao: Termo Operador . Termo
+   28         | Termo Operador . '(' Operacao ')'
 
-    pal  shift, and go to state 6
-    car  shift, and go to state 8
+    pal  shift, and go to state 8
+    num  shift, and go to state 17
+    car  shift, and go to state 9
+    '('  shift, and go to state 73
 
-    ListaVariaveisChar  go to state 76
-    Variavel            go to state 26
+    Termo     go to state 74
+    Variavel  go to state 40
 
 
 State 58
 
-   17 Ciclo: WHILE '(' Comparacao . $@1 ')' '{' ListaExpressao '}'
+   31 AtribuicaoInt: Variavel '=' . num
+   32              | Variavel '=' . Operacao
+   33 AtribuicaoChar: Variavel '=' . '\'' car '\''
 
-    $default  reduce using rule 16 ($@1)
+    pal   shift, and go to state 8
+    num   shift, and go to state 75
+    car   shift, and go to state 9
+    '('   shift, and go to state 18
+    '\''  shift, and go to state 76
 
-    $@1  go to state 77
+    Operacao  go to state 77
+    Termo     go to state 39
+    Variavel  go to state 40
 
 
 State 59
 
-   37 Comparacao: Termo . OpComp Termo
+   19 ListaVariaveisInt: Variavel '=' num .
+   21                  | Variavel '=' num . ',' ListaVariaveisInt
 
-    '='  shift, and go to state 47
-    '<'  shift, and go to state 48
-    '>'  shift, and go to state 49
-    '!'  shift, and go to state 50
+    ','  shift, and go to state 78
 
-    OpComp  go to state 51
+    $default  reduce using rule 19 (ListaVariaveisInt)
 
 
 State 60
 
-   18 IfElse: IF '(' Comparacao . ')' '{' ListaExpressao '}'
-   19       | IF '(' Comparacao . ')' '{' ListaExpressao '}' ELSE '{' ListaExpressao '}'
+   20 ListaVariaveisInt: Variavel ',' ListaVariaveisInt .
 
-    ')'  shift, and go to state 78
+    $default  reduce using rule 20 (ListaVariaveisInt)
 
 
 State 61
 
-   32 Operacao: '(' Operacao ')' . Operador Termo
+   24 ListaVariaveisChar: Variavel '=' '\'' . car '\''
+   26                   | Variavel '=' '\'' . car '\'' ',' ListaVariaveisChar
 
-    '+'  shift, and go to state 38
-    '-'  shift, and go to state 39
-    '*'  shift, and go to state 40
-    '/'  shift, and go to state 41
-    '%'  shift, and go to state 42
-
-    Operador  go to state 79
+    car  shift, and go to state 79
 
 
 State 62
 
-   33 Operacao: Operacao Operador Termo .
+   25 ListaVariaveisChar: Variavel ',' ListaVariaveisChar .
 
-    $default  reduce using rule 33 (Operacao)
+    $default  reduce using rule 25 (ListaVariaveisChar)
 
 
 State 63
 
-   40 OpComp: '=' '=' .
+   14 Ciclo: WHILE '(' Comparacao . ')' '{' ListaExpressao '}'
 
-    $default  reduce using rule 40 (OpComp)
+    ')'  shift, and go to state 80
 
 
 State 64
 
-   42 OpComp: '<' '=' .
+   34 Comparacao: Termo . OpComp Termo
 
-    $default  reduce using rule 42 (OpComp)
+    '='  shift, and go to state 52
+    '<'  shift, and go to state 53
+    '>'  shift, and go to state 54
+    '!'  shift, and go to state 55
+
+    OpComp  go to state 56
 
 
 State 65
 
-   43 OpComp: '>' '=' .
+   15 IfElse: IF '(' Comparacao . ')' '{' ListaExpressao '}'
+   16       | IF '(' Comparacao . ')' '{' ListaExpressao '}' ELSE '{' ListaExpressao '}'
 
-    $default  reduce using rule 43 (OpComp)
+    ')'  shift, and go to state 81
 
 
 State 66
 
-   41 OpComp: '!' '=' .
+   29 Operacao: '(' Operacao ')' . Operador Termo
 
-    $default  reduce using rule 41 (OpComp)
+    '+'  shift, and go to state 43
+    '-'  shift, and go to state 44
+    '*'  shift, and go to state 45
+    '/'  shift, and go to state 46
+    '%'  shift, and go to state 47
+
+    Operador  go to state 82
 
 
 State 67
 
-   37 Comparacao: Termo OpComp Termo .
-
-    $default  reduce using rule 37 (Comparacao)
-
-
-State 68
-
-   31 Operacao: Termo Operador '(' . Operacao ')'
-
-    pal  shift, and go to state 6
-    num  shift, and go to state 7
-    car  shift, and go to state 8
-    '('  shift, and go to state 9
-
-    Operacao  go to state 80
-    Termo     go to state 30
-    Variavel  go to state 31
-
-
-State 69
-
-   30 Operacao: Termo Operador Termo .
+   30 Operacao: Operacao Operador Termo .
 
     $default  reduce using rule 30 (Operacao)
 
 
+State 68
+
+   37 OpComp: '=' '=' .
+
+    $default  reduce using rule 37 (OpComp)
+
+
+State 69
+
+   39 OpComp: '<' '=' .
+
+    $default  reduce using rule 39 (OpComp)
+
+
 State 70
 
-   34 AtribuicaoInt: Variavel '=' num .
-   50 Termo: num .
+   40 OpComp: '>' '=' .
 
-    ';'       reduce using rule 34 (AtribuicaoInt)
-    $default  reduce using rule 50 (Termo)
+    $default  reduce using rule 40 (OpComp)
 
 
 State 71
 
-   36 AtribuicaoChar: Variavel '=' '\'' . car '\''
+   38 OpComp: '!' '=' .
 
-    car  shift, and go to state 81
+    $default  reduce using rule 38 (OpComp)
 
 
 State 72
 
-   33 Operacao: Operacao . Operador Termo
-   35 AtribuicaoInt: Variavel '=' Operacao .
+   34 Comparacao: Termo OpComp Termo .
 
-    '+'  shift, and go to state 38
-    '-'  shift, and go to state 39
-    '*'  shift, and go to state 40
-    '/'  shift, and go to state 41
-    '%'  shift, and go to state 42
-
-    $default  reduce using rule 35 (AtribuicaoInt)
-
-    Operador  go to state 43
+    $default  reduce using rule 34 (Comparacao)
 
 
 State 73
 
-   22 ListaVariaveisInt: Variavel '=' num .
-   24                  | Variavel '=' num . ',' ListaVariaveisInt
+   28 Operacao: Termo Operador '(' . Operacao ')'
 
-    ','  shift, and go to state 82
+    pal  shift, and go to state 8
+    num  shift, and go to state 17
+    car  shift, and go to state 9
+    '('  shift, and go to state 18
 
-    $default  reduce using rule 22 (ListaVariaveisInt)
+    Operacao  go to state 83
+    Termo     go to state 39
+    Variavel  go to state 40
 
 
 State 74
 
-   23 ListaVariaveisInt: Variavel ',' ListaVariaveisInt .
+   27 Operacao: Termo Operador Termo .
 
-    $default  reduce using rule 23 (ListaVariaveisInt)
+    $default  reduce using rule 27 (Operacao)
 
 
 State 75
 
-   27 ListaVariaveisChar: Variavel '=' '\'' . car '\''
-   29                   | Variavel '=' '\'' . car '\'' ',' ListaVariaveisChar
+   31 AtribuicaoInt: Variavel '=' num .
+   47 Termo: num .
 
-    car  shift, and go to state 83
+    ';'       reduce using rule 31 (AtribuicaoInt)
+    $default  reduce using rule 47 (Termo)
 
 
 State 76
 
-   28 ListaVariaveisChar: Variavel ',' ListaVariaveisChar .
+   33 AtribuicaoChar: Variavel '=' '\'' . car '\''
 
-    $default  reduce using rule 28 (ListaVariaveisChar)
+    car  shift, and go to state 84
 
 
 State 77
 
-   17 Ciclo: WHILE '(' Comparacao $@1 . ')' '{' ListaExpressao '}'
+   30 Operacao: Operacao . Operador Termo
+   32 AtribuicaoInt: Variavel '=' Operacao .
 
-    ')'  shift, and go to state 84
+    '+'  shift, and go to state 43
+    '-'  shift, and go to state 44
+    '*'  shift, and go to state 45
+    '/'  shift, and go to state 46
+    '%'  shift, and go to state 47
+
+    $default  reduce using rule 32 (AtribuicaoInt)
+
+    Operador  go to state 48
 
 
 State 78
 
-   18 IfElse: IF '(' Comparacao ')' . '{' ListaExpressao '}'
-   19       | IF '(' Comparacao ')' . '{' ListaExpressao '}' ELSE '{' ListaExpressao '}'
+   21 ListaVariaveisInt: Variavel '=' num ',' . ListaVariaveisInt
 
-    '{'  shift, and go to state 85
+    pal  shift, and go to state 8
+    car  shift, and go to state 9
+
+    ListaVariaveisInt  go to state 85
+    Variavel           go to state 11
 
 
 State 79
 
-   32 Operacao: '(' Operacao ')' Operador . Termo
+   24 ListaVariaveisChar: Variavel '=' '\'' car . '\''
+   26                   | Variavel '=' '\'' car . '\'' ',' ListaVariaveisChar
 
-    pal  shift, and go to state 6
-    num  shift, and go to state 7
-    car  shift, and go to state 8
-
-    Termo     go to state 86
-    Variavel  go to state 31
+    '\''  shift, and go to state 86
 
 
 State 80
 
-   31 Operacao: Termo Operador '(' Operacao . ')'
-   33         | Operacao . Operador Termo
+   14 Ciclo: WHILE '(' Comparacao ')' . '{' ListaExpressao '}'
 
-    ')'  shift, and go to state 87
-    '+'  shift, and go to state 38
-    '-'  shift, and go to state 39
-    '*'  shift, and go to state 40
-    '/'  shift, and go to state 41
-    '%'  shift, and go to state 42
-
-    Operador  go to state 43
+    '{'  shift, and go to state 87
 
 
 State 81
 
-   36 AtribuicaoChar: Variavel '=' '\'' car . '\''
+   15 IfElse: IF '(' Comparacao ')' . '{' ListaExpressao '}'
+   16       | IF '(' Comparacao ')' . '{' ListaExpressao '}' ELSE '{' ListaExpressao '}'
 
-    '\''  shift, and go to state 88
+    '{'  shift, and go to state 88
 
 
 State 82
 
-   24 ListaVariaveisInt: Variavel '=' num ',' . ListaVariaveisInt
+   29 Operacao: '(' Operacao ')' Operador . Termo
 
-    pal  shift, and go to state 6
-    car  shift, and go to state 8
+    pal  shift, and go to state 8
+    num  shift, and go to state 17
+    car  shift, and go to state 9
 
-    ListaVariaveisInt  go to state 89
-    Variavel           go to state 24
+    Termo     go to state 89
+    Variavel  go to state 40
 
 
 State 83
 
-   27 ListaVariaveisChar: Variavel '=' '\'' car . '\''
-   29                   | Variavel '=' '\'' car . '\'' ',' ListaVariaveisChar
+   28 Operacao: Termo Operador '(' Operacao . ')'
+   30         | Operacao . Operador Termo
 
-    '\''  shift, and go to state 90
+    ')'  shift, and go to state 90
+    '+'  shift, and go to state 43
+    '-'  shift, and go to state 44
+    '*'  shift, and go to state 45
+    '/'  shift, and go to state 46
+    '%'  shift, and go to state 47
+
+    Operador  go to state 48
 
 
 State 84
 
-   17 Ciclo: WHILE '(' Comparacao $@1 ')' . '{' ListaExpressao '}'
+   33 AtribuicaoChar: Variavel '=' '\'' car . '\''
 
-    '{'  shift, and go to state 91
+    '\''  shift, and go to state 91
 
 
 State 85
 
-   18 IfElse: IF '(' Comparacao ')' '{' . ListaExpressao '}'
-   19       | IF '(' Comparacao ')' '{' . ListaExpressao '}' ELSE '{' ListaExpressao '}'
+   21 ListaVariaveisInt: Variavel '=' num ',' ListaVariaveisInt .
 
-    INT    shift, and go to state 1
-    CHAR   shift, and go to state 2
-    WHILE  shift, and go to state 3
-    IF     shift, and go to state 4
-    pal    shift, and go to state 6
-    num    shift, and go to state 7
-    car    shift, and go to state 8
-    '('    shift, and go to state 9
-
-    ListaExpressao  go to state 92
-    Expressao       go to state 93
-    Ciclo           go to state 13
-    IfElse          go to state 14
-    DeclaraInt      go to state 15
-    DeclaraChar     go to state 16
-    Operacao        go to state 17
-    AtribuicaoInt   go to state 18
-    AtribuicaoChar  go to state 19
-    Comparacao      go to state 20
-    Termo           go to state 21
-    Variavel        go to state 22
+    $default  reduce using rule 21 (ListaVariaveisInt)
 
 
 State 86
 
-   32 Operacao: '(' Operacao ')' Operador Termo .
+   24 ListaVariaveisChar: Variavel '=' '\'' car '\'' .
+   26                   | Variavel '=' '\'' car '\'' . ',' ListaVariaveisChar
 
-    $default  reduce using rule 32 (Operacao)
+    ','  shift, and go to state 92
+
+    $default  reduce using rule 24 (ListaVariaveisChar)
 
 
 State 87
 
-   31 Operacao: Termo Operador '(' Operacao ')' .
+   14 Ciclo: WHILE '(' Comparacao ')' '{' . ListaExpressao '}'
 
-    $default  reduce using rule 31 (Operacao)
+    WHILE  shift, and go to state 15
+    IF     shift, and go to state 16
+    pal    shift, and go to state 8
+    num    shift, and go to state 17
+    car    shift, and go to state 9
+    '('    shift, and go to state 18
+
+    ListaExpressao  go to state 93
+    Expressao       go to state 20
+    Ciclo           go to state 21
+    IfElse          go to state 22
+    Operacao        go to state 23
+    AtribuicaoInt   go to state 24
+    AtribuicaoChar  go to state 25
+    Comparacao      go to state 26
+    Termo           go to state 27
+    Variavel        go to state 28
 
 
 State 88
 
-   36 AtribuicaoChar: Variavel '=' '\'' car '\'' .
+   15 IfElse: IF '(' Comparacao ')' '{' . ListaExpressao '}'
+   16       | IF '(' Comparacao ')' '{' . ListaExpressao '}' ELSE '{' ListaExpressao '}'
 
-    $default  reduce using rule 36 (AtribuicaoChar)
+    WHILE  shift, and go to state 15
+    IF     shift, and go to state 16
+    pal    shift, and go to state 8
+    num    shift, and go to state 17
+    car    shift, and go to state 9
+    '('    shift, and go to state 18
+
+    ListaExpressao  go to state 94
+    Expressao       go to state 20
+    Ciclo           go to state 21
+    IfElse          go to state 22
+    Operacao        go to state 23
+    AtribuicaoInt   go to state 24
+    AtribuicaoChar  go to state 25
+    Comparacao      go to state 26
+    Termo           go to state 27
+    Variavel        go to state 28
 
 
 State 89
 
-   24 ListaVariaveisInt: Variavel '=' num ',' ListaVariaveisInt .
+   29 Operacao: '(' Operacao ')' Operador Termo .
 
-    $default  reduce using rule 24 (ListaVariaveisInt)
+    $default  reduce using rule 29 (Operacao)
 
 
 State 90
 
-   27 ListaVariaveisChar: Variavel '=' '\'' car '\'' .
-   29                   | Variavel '=' '\'' car '\'' . ',' ListaVariaveisChar
+   28 Operacao: Termo Operador '(' Operacao ')' .
 
-    ','  shift, and go to state 94
-
-    $default  reduce using rule 27 (ListaVariaveisChar)
+    $default  reduce using rule 28 (Operacao)
 
 
 State 91
 
-   17 Ciclo: WHILE '(' Comparacao $@1 ')' '{' . ListaExpressao '}'
+   33 AtribuicaoChar: Variavel '=' '\'' car '\'' .
 
-    INT    shift, and go to state 1
-    CHAR   shift, and go to state 2
-    WHILE  shift, and go to state 3
-    IF     shift, and go to state 4
-    pal    shift, and go to state 6
-    num    shift, and go to state 7
-    car    shift, and go to state 8
-    '('    shift, and go to state 9
-
-    ListaExpressao  go to state 95
-    Expressao       go to state 93
-    Ciclo           go to state 13
-    IfElse          go to state 14
-    DeclaraInt      go to state 15
-    DeclaraChar     go to state 16
-    Operacao        go to state 17
-    AtribuicaoInt   go to state 18
-    AtribuicaoChar  go to state 19
-    Comparacao      go to state 20
-    Termo           go to state 21
-    Variavel        go to state 22
+    $default  reduce using rule 33 (AtribuicaoChar)
 
 
 State 92
 
-   18 IfElse: IF '(' Comparacao ')' '{' ListaExpressao . '}'
-   19       | IF '(' Comparacao ')' '{' ListaExpressao . '}' ELSE '{' ListaExpressao '}'
+   26 ListaVariaveisChar: Variavel '=' '\'' car '\'' ',' . ListaVariaveisChar
 
-    '}'  shift, and go to state 96
+    pal  shift, and go to state 8
+    car  shift, and go to state 9
+
+    ListaVariaveisChar  go to state 95
+    Variavel            go to state 13
 
 
 State 93
 
-    5 ListaExpressao: Expressao .
-    6               | Expressao . ListaExpressao
+   14 Ciclo: WHILE '(' Comparacao ')' '{' ListaExpressao . '}'
 
-    INT    shift, and go to state 1
-    CHAR   shift, and go to state 2
-    WHILE  shift, and go to state 3
-    IF     shift, and go to state 4
-    pal    shift, and go to state 6
-    num    shift, and go to state 7
-    car    shift, and go to state 8
-    '('    shift, and go to state 9
-
-    $default  reduce using rule 5 (ListaExpressao)
-
-    ListaExpressao  go to state 97
-    Expressao       go to state 93
-    Ciclo           go to state 13
-    IfElse          go to state 14
-    DeclaraInt      go to state 15
-    DeclaraChar     go to state 16
-    Operacao        go to state 17
-    AtribuicaoInt   go to state 18
-    AtribuicaoChar  go to state 19
-    Comparacao      go to state 20
-    Termo           go to state 21
-    Variavel        go to state 22
+    '}'  shift, and go to state 96
 
 
 State 94
 
-   29 ListaVariaveisChar: Variavel '=' '\'' car '\'' ',' . ListaVariaveisChar
+   15 IfElse: IF '(' Comparacao ')' '{' ListaExpressao . '}'
+   16       | IF '(' Comparacao ')' '{' ListaExpressao . '}' ELSE '{' ListaExpressao '}'
 
-    pal  shift, and go to state 6
-    car  shift, and go to state 8
-
-    ListaVariaveisChar  go to state 98
-    Variavel            go to state 26
+    '}'  shift, and go to state 97
 
 
 State 95
 
-   17 Ciclo: WHILE '(' Comparacao $@1 ')' '{' ListaExpressao . '}'
+   26 ListaVariaveisChar: Variavel '=' '\'' car '\'' ',' ListaVariaveisChar .
 
-    '}'  shift, and go to state 99
+    $default  reduce using rule 26 (ListaVariaveisChar)
 
 
 State 96
 
-   18 IfElse: IF '(' Comparacao ')' '{' ListaExpressao '}' .
-   19       | IF '(' Comparacao ')' '{' ListaExpressao '}' . ELSE '{' ListaExpressao '}'
+   14 Ciclo: WHILE '(' Comparacao ')' '{' ListaExpressao '}' .
 
-    ELSE  shift, and go to state 100
-
-    $default  reduce using rule 18 (IfElse)
+    $default  reduce using rule 14 (Ciclo)
 
 
 State 97
 
-    6 ListaExpressao: Expressao ListaExpressao .
+   15 IfElse: IF '(' Comparacao ')' '{' ListaExpressao '}' .
+   16       | IF '(' Comparacao ')' '{' ListaExpressao '}' . ELSE '{' ListaExpressao '}'
 
-    $default  reduce using rule 6 (ListaExpressao)
+    ELSE  shift, and go to state 98
+
+    $default  reduce using rule 15 (IfElse)
 
 
 State 98
 
-   29 ListaVariaveisChar: Variavel '=' '\'' car '\'' ',' ListaVariaveisChar .
+   16 IfElse: IF '(' Comparacao ')' '{' ListaExpressao '}' ELSE . '{' ListaExpressao '}'
 
-    $default  reduce using rule 29 (ListaVariaveisChar)
+    '{'  shift, and go to state 99
 
 
 State 99
 
-   17 Ciclo: WHILE '(' Comparacao $@1 ')' '{' ListaExpressao '}' .
+   16 IfElse: IF '(' Comparacao ')' '{' ListaExpressao '}' ELSE '{' . ListaExpressao '}'
 
-    $default  reduce using rule 17 (Ciclo)
+    WHILE  shift, and go to state 15
+    IF     shift, and go to state 16
+    pal    shift, and go to state 8
+    num    shift, and go to state 17
+    car    shift, and go to state 9
+    '('    shift, and go to state 18
+
+    ListaExpressao  go to state 100
+    Expressao       go to state 20
+    Ciclo           go to state 21
+    IfElse          go to state 22
+    Operacao        go to state 23
+    AtribuicaoInt   go to state 24
+    AtribuicaoChar  go to state 25
+    Comparacao      go to state 26
+    Termo           go to state 27
+    Variavel        go to state 28
 
 
 State 100
 
-   19 IfElse: IF '(' Comparacao ')' '{' ListaExpressao '}' ELSE . '{' ListaExpressao '}'
+   16 IfElse: IF '(' Comparacao ')' '{' ListaExpressao '}' ELSE '{' ListaExpressao . '}'
 
-    '{'  shift, and go to state 101
+    '}'  shift, and go to state 101
 
 
 State 101
 
-   19 IfElse: IF '(' Comparacao ')' '{' ListaExpressao '}' ELSE '{' . ListaExpressao '}'
+   16 IfElse: IF '(' Comparacao ')' '{' ListaExpressao '}' ELSE '{' ListaExpressao '}' .
 
-    INT    shift, and go to state 1
-    CHAR   shift, and go to state 2
-    WHILE  shift, and go to state 3
-    IF     shift, and go to state 4
-    pal    shift, and go to state 6
-    num    shift, and go to state 7
-    car    shift, and go to state 8
-    '('    shift, and go to state 9
-
-    ListaExpressao  go to state 102
-    Expressao       go to state 93
-    Ciclo           go to state 13
-    IfElse          go to state 14
-    DeclaraInt      go to state 15
-    DeclaraChar     go to state 16
-    Operacao        go to state 17
-    AtribuicaoInt   go to state 18
-    AtribuicaoChar  go to state 19
-    Comparacao      go to state 20
-    Termo           go to state 21
-    Variavel        go to state 22
-
-
-State 102
-
-   19 IfElse: IF '(' Comparacao ')' '{' ListaExpressao '}' ELSE '{' ListaExpressao . '}'
-
-    '}'  shift, and go to state 103
-
-
-State 103
-
-   19 IfElse: IF '(' Comparacao ')' '{' ListaExpressao '}' ELSE '{' ListaExpressao '}' .
-
-    $default  reduce using rule 19 (IfElse)
+    $default  reduce using rule 16 (IfElse)
