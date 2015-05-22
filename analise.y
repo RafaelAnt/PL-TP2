@@ -1,12 +1,23 @@
 %{
-#include <stdio>
+#include <stdio.h>
+
+#define _GNU_SOURCE
+#define TypeINT 1
+#define TypeChar 2
+#define TypeString 3
+
+int nComents = 0, nCiclos = 0, nIfs = 0, nOperacoes = 0, nAtribuicoes = 0, nDeclaracoes = 0, nComparacoes = 0;
+
+
+void printSumario();
 %}
 
+%union{int vali; char valc; char* vals}
 %token INT CHAR WHILE IF ELSE COMENT
-%token pal num car
+%token <vals>pal <vali>num <valc>car
 %%
-Linguagem : Expressao                     {printf("Sucesso!\n");}
-          | Comentario                    {printf("Sucesso!\n");}
+Linguagem : Expressao                     {printSumario();}
+          | Comentario                    {printSumario();}
           | Expressao Linguagem
           | Comentario Linguagem
           ;
@@ -15,7 +26,7 @@ ListaExpressao : Expressao
                | Expressao ListaExpressao
                ;
 
-Comentario : COMENT                       {printf("Comentário Detetado!\n");}
+Comentario : COMENT                       {nComents++;}
            ;
 
 Expressao : DeclaraInt ';'
@@ -28,12 +39,12 @@ Expressao : DeclaraInt ';'
           | IfElse
           ;
 
-Ciclo : WHILE '('Comparacao')' '{' ListaExpressao '}'
+Ciclo : WHILE '('Comparacao {nComparacoes++;} ')' '{' ListaExpressao '}' {nCiclos++;}
 
-IfElse : IF '('Comparacao')' '{' ListaExpressao '}'
-       | IF '('Comparacao')' '{' ListaExpressao '}' ELSE '{' ListaExpressao '}'
+IfElse : IF '('Comparacao ')' '{' ListaExpressao '}' {nIfs++;}
+       | IF '('Comparacao ')' '{' ListaExpressao '}' ELSE '{' ListaExpressao '}' {nIfs++;}
 
-DeclaraInt : INT ListaVariaveisInt
+DeclaraInt : INT ListaVariaveisInt {nDeclaracoes++;}
            ;
 
 ListaVariaveisInt : Variavel
@@ -42,7 +53,7 @@ ListaVariaveisInt : Variavel
                   | Variavel '=' num ',' ListaVariaveisInt
                   ;
 
-DeclaraChar : CHAR ListaVariaveisChar
+DeclaraChar : CHAR ListaVariaveisChar {nDeclaracoes++;}
             ;
 
 ListaVariaveisChar : Variavel
@@ -51,20 +62,20 @@ ListaVariaveisChar : Variavel
                    | Variavel '=' '\''car'\'' ',' ListaVariaveisChar
                    ;
 
-Operacao : Termo Operador Termo
+Operacao : Termo Operador Termo                         {nOperacoes++;}
          | Termo Operador '('Operacao')'
          | '('Operacao')' Operador Termo
          | Operacao Operador Termo
          ;
 
-AtribuicaoInt : Variavel '=' num
-              | Variavel '=' Operacao
+AtribuicaoInt : Variavel '=' num                        {nAtribuicoes++;}
+              | Variavel '=' Operacao                   {nAtribuicoes++;}
               ;
 
-AtribuicaoChar : Variavel '=' '\''car'\''
+AtribuicaoChar : Variavel '=' '\''car'\''               {nAtribuicoes++;}
                ;
 
-Comparacao : Termo OpComp Termo
+Comparacao : Termo OpComp Termo {nComparacoes++;}
            ;
 
 OpComp : '<'
@@ -79,6 +90,7 @@ Operador : '+'
          | '-'
          | '*'
          | '/'
+         | '%'
          ;
 
 Termo : Variavel
@@ -98,6 +110,9 @@ pal - palavra
 num - numero
 car - caratere
 */
+void printSumario(){
+  printf("*** Sucesso! ***\nSumário:\nDeclarações: %d\nAtribuições: %d\nComparações: %d\nOperações: %d\nComentários: %d\nCiclos: %d\nIf-Else: %d\n",nDeclaracoes,nAtribuicoes,nComparacoes,nOperacoes,nComents,nCiclos,nIfs);
+}
 
 void yyerror(char * e){
   printf("Erro sintático: %s\n\n",e);

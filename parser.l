@@ -18,6 +18,7 @@
 \{                  {return('{');}
 \}                  {return('}');}
 \!                  {return('!');}
+\%                  {return('%');}
 [a-zA-Z] 	        {return(car);}
 [a-zA-Z]+   	    {return(pal);}
 [0-9]+      	    {return(num);}
