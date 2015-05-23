@@ -50,9 +50,10 @@ extern int yydebug;
     WHILE = 260,
     IF = 261,
     ELSE = 262,
-    pal = 263,
-    num = 264,
-    car = 265
+    EQUALITY = 263,
+    pal = 264,
+    num = 265,
+    car = 266
   };
 #endif
 /* Tokens.  */
@@ -61,9 +62,10 @@ extern int yydebug;
 #define WHILE 260
 #define IF 261
 #define ELSE 262
-#define pal 263
-#define num 264
-#define car 265
+#define EQUALITY 263
+#define pal 264
+#define num 265
+#define car 266
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -73,7 +75,7 @@ union YYSTYPE
 #line 16 "analise.y" /* yacc.c:1909  */
 int vali; char valc; char* vals;
 
-#line 77 "y.tab.h" /* yacc.c:1909  */
+#line 79 "y.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

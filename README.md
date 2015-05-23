@@ -4,12 +4,12 @@ Repositório para ficheiros de trabalho prático 2 da disciplina de Processament
 Comandos:
 
 flex parser.l
-yacc -d -v analise.y 
+yacc -d -v analise.y
 gcc -o tp2 y.tab.c
 
 Ou:
 
-flex parser.l | yacc -d -v analise.y | gcc -o tp2 y.tab.c
+flex parser.l ; yacc -d -v analise.y ; gcc -o tp2 y.tab.c
 
 
 Para testar:

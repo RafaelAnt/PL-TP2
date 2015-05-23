@@ -14,10 +14,10 @@ void printSumario();
 %}
 
 %union{int vali; char valc; char* vals;}
-%token INT CHAR WHILE IF ELSE
+%token INT CHAR WHILE IF ELSE EQUALITY
 %token <vals>pal <vali>num <valc>car
 %%
-Linguagem : ListaDeclaracoes ListaExpressao                      {printSumario();}
+Linguagem : ListaDeclaracoes ListaExpressao  {printSumario();}
           ;
 
 ListaDeclaracoes : Declaracao
@@ -83,7 +83,7 @@ Comparacao : Termo OpComp Termo {nComparacoes++;}
 
 OpComp : '<'
        | '>'
-       | '=''='
+       | EQUALITY
        | '!''='
        | '<''='
        | '>''='
@@ -118,7 +118,7 @@ void printSumario(){
 }
 
 void yyerror(char * e){
-  printf("Erro sintático: %s\n\n",e);
+  printf("\n\n*** ERRO ***\n\nLinha %d.\nDescrição: %s\n\n************\n\n",yylineno,e);
 }
 
 int main(){

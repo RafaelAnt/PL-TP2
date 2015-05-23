@@ -1,15 +1,23 @@
-int i;
+int i = 1;
 int a, b, c;
 char c;
 char u,i,o;
 
+int teste;
+
+
+
 i=1*6;
 c='T';
+
+aRd==2;
 
 while(i<5){
 b=b*2;
 i=i+1;
 }
+
+char pp;
 
 if(i>50){
   i=0;
@@ -23,10 +31,11 @@ if(j!=5){
   }
 }
 
-int o;
+
+
 
 a%b;
 
 /*Teste aos comentários
 
-Perfeito*/
+*/
