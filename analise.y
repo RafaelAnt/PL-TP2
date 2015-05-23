@@ -57,19 +57,19 @@ IfElse : IF '('Comparacao ')' '{' ListaExpressao '}' {nIfs++;}
 DeclaraInt : INT ListaVariaveisInt {nDeclaracoes++;}
            ;
 
-ListaVariaveisInt : pal                          {printf("hash: %d\n",h);hash_put(h,$1,TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI 0\n");}
-                  | pal '=' num                  {hash_put(h,$1,TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI %d\n",$3);}
-                  | pal                          {if(hash_get(h,$1)!=NULL){} hash_put(h,$1,TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI 0\n");}            ',' ListaVariaveisInt
-                  | pal '=' num                  {hash_put(h,$1,TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI %d\n",$3);}        ',' ListaVariaveisInt
+ListaVariaveisInt : pal                          {if(hash_get(h,$1)!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,$1,TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI 0\n");}
+                  | pal '=' num                  {if(hash_get(h,$1)!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,$1,TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI %d\n",$3);}
+                  | pal                          {if(hash_get(h,$1)!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,$1,TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI 0\n");}                ',' ListaVariaveisInt
+                  | pal '=' num                  {if(hash_get(h,$1)!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,$1,TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI %d\n",$3);}            ',' ListaVariaveisInt
                   ;
 
 DeclaraStr : STR ListaVariaveisStr {nDeclaracoes++;}
            ;
 
-ListaVariaveisStr : pal                          {hash_put(h,$1,TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"\"\n");}
-                  | pal '=' '\"'pal'\"'          {hash_put(h,$1,TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"%s\"\n",$4);}
-                  | pal                          {hash_put(h,$1,TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"\"\n");}         ',' ListaVariaveisStr
-                  | pal '=' '\"'pal'\"'          {hash_put(h,$1,TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"%s\"\n",$4);}     ',' ListaVariaveisStr
+ListaVariaveisStr : pal                          {if(hash_get(h,$1)!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,$1,TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"\"\n");}
+                  | pal '=' '\"'pal'\"'          {if(hash_get(h,$1)!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,$1,TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"%s\"\n",$4);}
+                  | pal                          {if(hash_get(h,$1)!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,$1,TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"\"\n");}          ',' ListaVariaveisStr
+                  | pal '=' '\"'pal'\"'          {if(hash_get(h,$1)!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,$1,TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"%s\"\n",$4);}     ',' ListaVariaveisStr
                   ;
 
 Operacao : Termo Operador Termo                         {nOperacoes++;}
@@ -118,6 +118,8 @@ void printSumario(){
 
 void yyerror(char * e){
   printf("\n\n*** ERRO ***\n\nLinha %d.\nDescrição: %s\n\n************\n\n",yylineno,e);
+  fclose(fp);
+  fopen("output.txt","w");
 }
 
 int getSize(char* text){

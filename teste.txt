@@ -1,11 +1,6 @@
 int iii = 1;
 int a, b=4, c=6;
-
-int t;
-int t;
-int t;
-int t;
-
+int a;
 str c="teste";
 str u,i,o="OlaMae";
 

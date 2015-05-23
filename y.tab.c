@@ -1342,25 +1342,25 @@ yyreduce:
 
   case 19:
 #line 60 "analise.y" /* yacc.c:1646  */
-    {printf("hash: %d\n",h);hash_put(h,(yyvsp[0].vals),TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI 0\n");}
+    {if(hash_get(h,(yyvsp[0].vals))!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,(yyvsp[0].vals),TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI 0\n");}
 #line 1347 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
 #line 61 "analise.y" /* yacc.c:1646  */
-    {hash_put(h,(yyvsp[-2].vals),TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI %d\n",(yyvsp[0].vali));}
+    {if(hash_get(h,(yyvsp[-2].vals))!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,(yyvsp[-2].vals),TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI %d\n",(yyvsp[0].vali));}
 #line 1353 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
 #line 62 "analise.y" /* yacc.c:1646  */
-    {if(hash_get(h,(yyvsp[0].vals))!=NULL){} hash_put(h,(yyvsp[0].vals),TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI 0\n");}
+    {if(hash_get(h,(yyvsp[0].vals))!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,(yyvsp[0].vals),TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI 0\n");}
 #line 1359 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
 #line 63 "analise.y" /* yacc.c:1646  */
-    {hash_put(h,(yyvsp[-2].vals),TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI %d\n",(yyvsp[0].vali));}
+    {if(hash_get(h,(yyvsp[-2].vals))!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,(yyvsp[-2].vals),TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI %d\n",(yyvsp[0].vali));}
 #line 1365 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1372,25 +1372,25 @@ yyreduce:
 
   case 26:
 #line 69 "analise.y" /* yacc.c:1646  */
-    {hash_put(h,(yyvsp[0].vals),TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"\"\n");}
+    {if(hash_get(h,(yyvsp[0].vals))!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,(yyvsp[0].vals),TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"\"\n");}
 #line 1377 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
 #line 70 "analise.y" /* yacc.c:1646  */
-    {hash_put(h,(yyvsp[-4].vals),TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"%s\"\n",(yyvsp[-1].vals));}
+    {if(hash_get(h,(yyvsp[-4].vals))!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,(yyvsp[-4].vals),TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"%s\"\n",(yyvsp[-1].vals));}
 #line 1383 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
 #line 71 "analise.y" /* yacc.c:1646  */
-    {hash_put(h,(yyvsp[0].vals),TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"\"\n");}
+    {if(hash_get(h,(yyvsp[0].vals))!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,(yyvsp[0].vals),TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"\"\n");}
 #line 1389 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
 #line 72 "analise.y" /* yacc.c:1646  */
-    {hash_put(h,(yyvsp[-4].vals),TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"%s\"\n",(yyvsp[-1].vals));}
+    {if(hash_get(h,(yyvsp[-4].vals))!=NULL){yyerror("Variável já foi declarada.");return;}hash_put(&h,(yyvsp[-4].vals),TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"%s\"\n",(yyvsp[-1].vals));}
 #line 1395 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1664,6 +1664,8 @@ void printSumario(){
 
 void yyerror(char * e){
   printf("\n\n*** ERRO ***\n\nLinha %d.\nDescrição: %s\n\n************\n\n",yylineno,e);
+  fclose(fp);
+  fopen("output.txt","w");
 }
 
 int getSize(char* text){
