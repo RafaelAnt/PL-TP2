@@ -1,14 +1,19 @@
-int i = 1;
-int a, b, c;
-char c;
-char u,i,o;
+int iii = 1;
+int a, b=4, c=6;
 
-int teste;
+int t;
+int t;
+int t;
+int t;
+
+str c="teste";
+str u,i,o="OlaMae";
 
 
+START
 
 i=1*6;
-c='T';
+c="T";
 
 aRd==2;
 
@@ -16,8 +21,6 @@ while(i<5){
 b=b*2;
 i=i+1;
 }
-
-char pp;
 
 if(i>50){
   i=0;
@@ -39,3 +42,5 @@ a%b;
 /*Teste aos comentários
 
 */
+
+STOP

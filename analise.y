@@ -1,23 +1,30 @@
 %{
 #include <stdio.h>
+#include <stdlib.h>
 #include "hash.c"
 
 #define _GNU_SOURCE
-#define TypeINT 1
-#define TypeChar 2
-#define TypeString 3
+#define TYPE_INT 1
+#define TYPE_STRING 2
+
+
+FILE *fp;
 
 int nCiclos = 0, nIfs = 0, nOperacoes = 0, nAtribuicoes = 0, nDeclaracoes = 0, nComparacoes = 0;
+int spVar=0;
 HashTable h = NULL;
 
+
 void printSumario();
+void yyerror(char * e);
+int getSize(char* text);
 %}
 
-%union{int vali; char valc; char* vals;}
-%token INT CHAR WHILE IF ELSE EQUALITY
-%token <vals>pal <vali>num <valc>car
+%union{int vali; char* vals;}
+%token INT STR WHILE IF ELSE EQUALITY START STOP
+%token <vals>pal <vali>num
 %%
-Linguagem : ListaDeclaracoes ListaExpressao  {printSumario();}
+Linguagem : ListaDeclaracoes START ListaExpressao STOP  {printSumario();}
           ;
 
 ListaDeclaracoes : Declaracao
@@ -25,7 +32,7 @@ ListaDeclaracoes : Declaracao
                  ;
 
 Declaracao : DeclaraInt ';'
-           | DeclaraChar ';'
+           | DeclaraStr ';'
            ;
 
 ListaExpressao : Expressao
@@ -36,7 +43,7 @@ ListaExpressao : Expressao
 
 Expressao : Operacao ';'
           | AtribuicaoInt ';'
-          | AtribuicaoChar ';'
+          | AtribuicaoStr ';'
           | Comparacao ';'
           | Ciclo
           | IfElse
@@ -50,20 +57,20 @@ IfElse : IF '('Comparacao ')' '{' ListaExpressao '}' {nIfs++;}
 DeclaraInt : INT ListaVariaveisInt {nDeclaracoes++;}
            ;
 
-ListaVariaveisInt : Variavel
-                  | Variavel '=' num
-                  | Variavel ',' ListaVariaveisInt
-                  | Variavel '=' num ',' ListaVariaveisInt
+ListaVariaveisInt : pal                          {printf("hash: %d\n",h);hash_put(h,$1,TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI 0\n");}
+                  | pal '=' num                  {hash_put(h,$1,TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI %d\n",$3);}
+                  | pal                          {if(hash_get(h,$1)!=NULL){} hash_put(h,$1,TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI 0\n");}            ',' ListaVariaveisInt
+                  | pal '=' num                  {hash_put(h,$1,TYPE_INT,spVar);spVar++;fprintf(fp,"PUSHI %d\n",$3);}        ',' ListaVariaveisInt
                   ;
 
-DeclaraChar : CHAR ListaVariaveisChar {nDeclaracoes++;}
-            ;
+DeclaraStr : STR ListaVariaveisStr {nDeclaracoes++;}
+           ;
 
-ListaVariaveisChar : Variavel
-                   | Variavel '=' '\''car'\''
-                   | Variavel ',' ListaVariaveisChar
-                   | Variavel '=' '\''car'\'' ',' ListaVariaveisChar
-                   ;
+ListaVariaveisStr : pal                          {hash_put(h,$1,TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"\"\n");}
+                  | pal '=' '\"'pal'\"'          {hash_put(h,$1,TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"%s\"\n",$4);}
+                  | pal                          {hash_put(h,$1,TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"\"\n");}         ',' ListaVariaveisStr
+                  | pal '=' '\"'pal'\"'          {hash_put(h,$1,TYPE_STRING,spVar);spVar++;fprintf(fp,"PUSHS \"%s\"\n",$4);}     ',' ListaVariaveisStr
+                  ;
 
 Operacao : Termo Operador Termo                         {nOperacoes++;}
          | Termo Operador '('Operacao')'
@@ -71,11 +78,11 @@ Operacao : Termo Operador Termo                         {nOperacoes++;}
          | Operacao Operador Termo
          ;
 
-AtribuicaoInt : Variavel '=' num                        {nAtribuicoes++;}
-              | Variavel '=' Operacao                   {nAtribuicoes++;}
+AtribuicaoInt : pal '=' num                        {nAtribuicoes++;}
+              | pal '=' Operacao                   {nAtribuicoes++;}
               ;
 
-AtribuicaoChar : Variavel '=' '\''car'\''               {nAtribuicoes++;}
+AtribuicaoStr : pal '=' '\"'pal'\"'               {nAtribuicoes++;}
                ;
 
 Comparacao : Termo OpComp Termo {nComparacoes++;}
@@ -96,23 +103,15 @@ Operador : '+'
          | '%'
          ;
 
-Termo : Variavel
+Termo : pal
       | num
       ;
 
-Variavel : pal
-         | car
-         ;
 
 %%
 
 #include "lex.yy.c"
 
-/*
-pal - palavra
-num - numero
-car - caratere
-*/
 void printSumario(){
   printf("*** Sucesso! ***\nSumário:\nDeclarações: %d\nAtribuições: %d\nComparações: %d\nOperações: %d\nCiclos: %d\nIf-Else: %d\n",nDeclaracoes,nAtribuicoes,nComparacoes,nOperacoes,nCiclos,nIfs);
 }
@@ -121,7 +120,17 @@ void yyerror(char * e){
   printf("\n\n*** ERRO ***\n\nLinha %d.\nDescrição: %s\n\n************\n\n",yylineno,e);
 }
 
+int getSize(char* text){
+  int r=0;
+  while(text!=NULL&&text[r]!='\0'){
+    r++;
+  }
+  return r;
+}
+
 int main(){
+  fp=fopen("output.txt","w");
   yyparse();
+  fclose(fp);
   return 0;
 }

@@ -3,7 +3,7 @@
 
 typedef struct variavel {
   int   tipo;
-  void *valor;
+  int   pos;
 } Variavel;
 
 typedef struct entry {
@@ -23,15 +23,17 @@ Variavel* hash_get(HashTable hash, char *key) {
 }
 
 //funçao para colocar uma variável com um dado nome, tipo e valor???
-void hash_put(HashTable *hash, char *id, int tipo, void *valor) {
-  struct entry *temp = malloc(sizeof(struct entry)), *old;
+void hash_put(HashTable hash, char *id, int tipo, int pos) {
+  //printf("A introduzir a variável: %s, do tipo: %d, na posição: %d\n",id,tipo,pos);
+
+  struct entry *temp = malloc(sizeof(struct entry)), *old,*temp2;
 		Variavel *v = malloc(sizeof(struct variavel));
 		v->tipo=tipo;
-		v->valor=valor;
+		v->pos=pos;
 
   strcpy(temp->id, id);
   temp->var = v;
-  HASH_REPLACE_STR((*hash), id, temp, old);
+  HASH_REPLACE_STR(hash, id, temp, old);
 
   if (old) free(old);
 }

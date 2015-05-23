@@ -46,36 +46,38 @@ extern int yydebug;
   enum yytokentype
   {
     INT = 258,
-    CHAR = 259,
+    STR = 259,
     WHILE = 260,
     IF = 261,
     ELSE = 262,
     EQUALITY = 263,
-    pal = 264,
-    num = 265,
-    car = 266
+    START = 264,
+    STOP = 265,
+    pal = 266,
+    num = 267
   };
 #endif
 /* Tokens.  */
 #define INT 258
-#define CHAR 259
+#define STR 259
 #define WHILE 260
 #define IF 261
 #define ELSE 262
 #define EQUALITY 263
-#define pal 264
-#define num 265
-#define car 266
+#define START 264
+#define STOP 265
+#define pal 266
+#define num 267
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 16 "analise.y" /* yacc.c:1909  */
-int vali; char valc; char* vals;
+#line 23 "analise.y" /* yacc.c:1909  */
+int vali; char* vals;
 
-#line 79 "y.tab.h" /* yacc.c:1909  */
+#line 81 "y.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
