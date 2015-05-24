@@ -1,20 +1,18 @@
-int iii = 1;
-int a, b=4, c=6;
-int a;
-str c="teste";
-str u,i,o="OlaMae";
+int i = 1;
+int a, b=4;
+
+str y="teste";
+str u, o="OlaMae";
 
 
 START
 
-i=1*6;
-c="T";
-
-aRd==2;
+i=23;
+a=4*8-9;
+y="OlaTesteSemEspaco";
 
 while(i<5){
-b=b*2;
-i=i+1;
+  b=2;
 }
 
 if(i>50){
@@ -23,19 +21,12 @@ if(i>50){
   i=i+1;
 }
 
-if(j!=5){
-  while(j>9){
-    j=j+1;
+if(a!=5){
+  while(a>9){
+    b=b*3;
   }
 }
 
-
-
-
-a%b;
-
 /*Teste aos comentários
-
 */
-
 STOP

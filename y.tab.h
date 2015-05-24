@@ -45,39 +45,59 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    INT = 258,
-    STR = 259,
-    WHILE = 260,
-    IF = 261,
-    ELSE = 262,
-    EQUALITY = 263,
-    START = 264,
-    STOP = 265,
-    pal = 266,
-    num = 267
+    ADD = 258,
+    SUB = 259,
+    MUL = 260,
+    DIV = 261,
+    MOD = 262,
+    EQUAL = 263,
+    SUP = 264,
+    INF = 265,
+    SUPEQ = 266,
+    INFEQ = 267,
+    DIF = 268,
+    INT = 269,
+    STR = 270,
+    WHILE = 271,
+    IF = 272,
+    ELSE = 273,
+    START = 274,
+    STOP = 275,
+    pal = 276,
+    num = 277
   };
 #endif
 /* Tokens.  */
-#define INT 258
-#define STR 259
-#define WHILE 260
-#define IF 261
-#define ELSE 262
-#define EQUALITY 263
-#define START 264
-#define STOP 265
-#define pal 266
-#define num 267
+#define ADD 258
+#define SUB 259
+#define MUL 260
+#define DIV 261
+#define MOD 262
+#define EQUAL 263
+#define SUP 264
+#define INF 265
+#define SUPEQ 266
+#define INFEQ 267
+#define DIF 268
+#define INT 269
+#define STR 270
+#define WHILE 271
+#define IF 272
+#define ELSE 273
+#define START 274
+#define STOP 275
+#define pal 276
+#define num 277
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 23 "analise.y" /* yacc.c:1909  */
-int vali; char* vals;
+#line 54 "analise.y" /* yacc.c:1909  */
+int vali; char* vals; Termo valt;
 
-#line 81 "y.tab.h" /* yacc.c:1909  */
+#line 101 "y.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
