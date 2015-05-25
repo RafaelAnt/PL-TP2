@@ -1,0 +1,36 @@
+int i = 1;
+int a, b=4;
+
+str y="teste";
+str u, o="OlaMae";
+
+
+START
+
+write(y);
+
+read(y);
+
+i=23;
+a=4*8-9;
+y="OlaTesteSemEspaco";
+
+while(i<5){
+  b=2;
+}
+
+if(i>50){
+  i=0;
+}else{
+  i=i+1;
+}
+
+if(a!=5){
+  while(a>9){
+    b=b*3;
+  }
+}
+
+/*Teste aos comentários
+*/
+STOP
