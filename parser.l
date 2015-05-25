@@ -13,6 +13,8 @@
 (?i:ELSE)                {return(ELSE);}
 (?i:START)               {return(START);}
 (?i:STOP)                {return(STOP);}
+(?i:WRITE)               {return(WRITE);}
+(?i:READ)                {return(READ);}
 ==                       {return(EQUAL);}
 "<"                      {return(INF);}
 ">"                      {return(SUP);}

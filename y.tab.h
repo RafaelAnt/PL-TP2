@@ -63,8 +63,10 @@ extern int yydebug;
     ELSE = 273,
     START = 274,
     STOP = 275,
-    pal = 276,
-    num = 277
+    WRITE = 276,
+    READ = 277,
+    pal = 278,
+    num = 279
   };
 #endif
 /* Tokens.  */
@@ -86,8 +88,10 @@ extern int yydebug;
 #define ELSE 273
 #define START 274
 #define STOP 275
-#define pal 276
-#define num 277
+#define WRITE 276
+#define READ 277
+#define pal 278
+#define num 279
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -97,7 +101,7 @@ union YYSTYPE
 #line 54 "analise.y" /* yacc.c:1909  */
 int vali; char* vals; Termo valt;
 
-#line 101 "y.tab.h" /* yacc.c:1909  */
+#line 105 "y.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

@@ -55,6 +55,7 @@ char* getOperador (int a);
 %token ADD SUB MUL DIV MOD
 %token EQUAL SUP INF SUPEQ INFEQ DIF
 %token INT STR WHILE IF ELSE START STOP
+%token WRITE READ
 %token <vals>pal <vali>num
 %type <vali>Operador
 %type <vali>OpComp
@@ -83,6 +84,8 @@ Expressao : Operacao ';'
           | Comparacao ';'
           | Ciclo
           | IfElse
+          | Escrever ';'
+          | Ler ';'
           ;
 
 Ciclo : WHILE                        {inicioCiclo[apontador++]=nlinhas;}
@@ -187,6 +190,14 @@ Comparacao : Termo OpComp Termo                    {if($1.tipo==TYPE_INT){fprint
                                                     fprintf(fp,"%d %s\n",nlinhas++,getOpComp($2));
                                                     nComparacoes++;}
            ;
+
+Escrever : WRITE '(' pal ')'                        {v=hash_get(h,$3);if(v==NULL){yyerror(ERR_2);return;} fprintf(fp,"%d PUSHG %d\n",nlinhas++,v->pos);
+                                                    if(v->tipo==TYPE_INT){fprintf(fp,"%d WRITEI\n",nlinhas++);} if(v->tipo==TYPE_STRING){fprintf(fp,"%d WRITES\n",nlinhas++);}}
+         ;
+
+Ler : READ '(' pal ')'                              {v=hash_get(h,$3);if(v==NULL){yyerror(ERR_2);return;}
+                                                    fprintf(fp,"%d READ\n",nlinhas++);fprintf(fp,"%d STOREG %d\n",nlinhas++,v->pos);}
+    ;
 
 OpComp : INF                                       {$$=MENOR;}
        | SUP                                       {$$=MAIOR;}

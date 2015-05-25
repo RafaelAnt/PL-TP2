@@ -7,7 +7,11 @@ str u, o="OlaMae";
 
 START
 
-i=23;
+write(y);
+
+read(y);
+
+/*i=23;
 a=4*8-9;
 y="OlaTesteSemEspaco";
 
@@ -25,7 +29,7 @@ if(a!=5){
   while(a>9){
     b=b*3;
   }
-}
+}*/
 
 /*Teste aos comentários
 */
