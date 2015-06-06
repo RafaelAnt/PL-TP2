@@ -61,7 +61,7 @@ char* getOperador (int a);
 %type <vali>OpComp
 %type <valt>Termo
 %%
-Linguagem : ListaDeclaracoes START {fprintf(fp,"\n");} ListaExpressao STOP  {printSumario();}
+Linguagem : ListaDeclaracoes START {fprintf(fp,"START");} ListaExpressao STOP  {fprintf(fp,"STOP");printSumario();}
           ;
 
 ListaDeclaracoes : Declaracao
